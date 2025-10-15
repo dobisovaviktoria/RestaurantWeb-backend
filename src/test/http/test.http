@@ -1,0 +1,28 @@
+### User login
+POST http://localhost:8180/realms/kdg-realm/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&client_id=backend-app&username=kiki@gmail.com&password=password
+
+### Create new restaurant
+POST http://localhost:8080/restaurant
+
+{
+  "ownerId": "d82cecfb-3201-4545-812d-542ed4feea92",
+  "name": "Tasty Sushi",
+  "address": {
+    "street": "Main Street",
+    "number": "12A",
+    "city": "Brussels",
+    "zipcode": "1000",
+    "country": "Belgium"
+  },
+  "email": "tasty@sushi.com",
+  "pictures": ["http://example.com/sushi1.jpg", "http://example.com/sushi2.jpg"],
+  "cuisineType": "JAPANESE",
+  "preparationTime": 20.5,
+  "openingHours": [
+    { "dayOfWeek": "MONDAY", "openingTime": "09:00", "closingTime": "21:00" },
+    { "dayOfWeek": "TUESDAY", "openingTime": "09:00", "closingTime": "21:00" }
+  ]
+}
