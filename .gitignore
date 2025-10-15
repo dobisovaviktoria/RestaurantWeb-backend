@@ -9,6 +9,8 @@ lerna-debug.log*
 
 .idea/
 
+infrastructure
+
 # Ignore MySQL runtime files
 infrastructure/idp_mysql_data/
 

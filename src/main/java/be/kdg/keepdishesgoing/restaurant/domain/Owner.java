@@ -1,7 +1,5 @@
 package be.kdg.keepdishesgoing.restaurant.domain;
 
-import java.util.UUID;
-
 public class Owner {
     private String id;
     private String email;

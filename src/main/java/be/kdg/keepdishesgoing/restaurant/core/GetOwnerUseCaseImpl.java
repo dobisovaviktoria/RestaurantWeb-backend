@@ -1,6 +1,6 @@
 package be.kdg.keepdishesgoing.restaurant.core;
 
-import be.kdg.keepdishesgoing.restaurant.adapter.out.OwnerJpaEntity;
+import be.kdg.keepdishesgoing.restaurant.adapter.out.entities.OwnerJpaEntity;
 import be.kdg.keepdishesgoing.restaurant.domain.Owner;
 import be.kdg.keepdishesgoing.restaurant.port.in.GetOwnerPort;
 import be.kdg.keepdishesgoing.restaurant.port.out.LoadOwnerPort;
