@@ -20,7 +20,6 @@ public record CreateRestaurantCommand(
     public CreateRestaurantCommand {
         Assert.hasText(name, "Restaurant name is required");
         Assert.hasText(email, "Contact email is required");
-        Assert.notEmpty(pictures, "At least one picture URL is required");
         Assert.isTrue(preparationTime > 0, "Preparation time must be positive");
     }
 }

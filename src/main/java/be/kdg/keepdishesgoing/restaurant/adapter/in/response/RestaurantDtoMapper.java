@@ -24,8 +24,8 @@ public class RestaurantDtoMapper {
                         .map(oh -> new RestaurantDto.OpeningHoursDto(
                                 oh.id(),
                                 oh.dayOfWeek(),
-                                oh.openingTime(),  // use domain accessor
-                                oh.closingTime()   // use domain accessor
+                                oh.openingTime(),
+                                oh.closingTime()
                         ))
                         .collect(Collectors.toList())
         );

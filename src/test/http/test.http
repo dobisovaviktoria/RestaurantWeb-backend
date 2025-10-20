@@ -39,3 +39,105 @@ Accept: application/json
     }
   ]
 }
+
+### Create a new dish draft
+POST http://localhost:8080/restaurant/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/draft
+Content-Type: application/json
+
+{
+  "dishId": null,
+  "name": "Margherita Pizza",
+  "dishType": "MAIN",
+  "foodTags": ["GLUTEN", "LACTOSE"],
+  "description": "Classic pizza with tomato and cheese",
+  "price": 12.5,
+  "imageUrl": "http://example.com/pizza.jpg"
+}
+
+### Update existing dish draft
+POST http://localhost:8080/restaurant/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/draft
+Content-Type: application/json
+
+{
+  "dishId": "8bc2efce-0b4f-49c4-971a-72cbe72fc08e",
+  "name": "Margherita Pizza Deluxe",
+  "dishType": "MAIN",
+  "foodTags": ["VEGAN"],
+  "description": "Upgraded version with extra mozzarella.",
+  "price": 11.49,
+  "imageUrl": "https://example.com/pizza-deluxe.jpg"
+}
+
+### Publish dish
+POST http://localhost:8080/restaurant/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/8bc2efce-0b4f-49c4-971a-72cbe72fc08e/publish
+
+### Unpublish dish
+POST http://localhost:8080/restaurant/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/8bc2efce-0b4f-49c4-971a-72cbe72fc08e/unpublish
+
+### Mark dish out of stock
+POST http://localhost:8080/restaurant/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/8bc2efce-0b4f-49c4-971a-72cbe72fc08e/out-of-stock
+
+### Mark dish back in stock
+POST http://localhost:8080/restaurant/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/8bc2efce-0b4f-49c4-971a-72cbe72fc08e/in-stock
+
+### Create a new dish draft
+POST http://localhost:8080/restaurant/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/draft
+Content-Type: application/json
+
+{
+  "dishId": null,
+  "name": "Lasagna",
+  "dishType": "MAIN",
+  "foodTags": ["VEGAN", "GLUTEN"],
+  "description": "Vegan lasagna with fresh basil.",
+  "price": 12.99,
+  "imageUrl": "https://example.com/lasagna.jpg"
+}
+
+### Create a new dish draft
+POST http://localhost:8080/restaurant/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/draft
+Content-Type: application/json
+
+{
+  "dishId": null,
+  "name": "Ham and Cheese Toast",
+  "dishType": "STARTER",
+  "foodTags": ["LACTOSE"],
+  "description": "Classic toast with ham and cheese.",
+  "price": 5.99,
+  "imageUrl": "https://example.com/toast.jpg"
+}
+
+### Create a new dish draft
+POST http://localhost:8080/restaurant/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/draft
+Content-Type: application/json
+
+{
+  "dishId": null,
+  "name": "Cheese Toast",
+  "dishType": "STARTER",
+  "foodTags": ["LACTOSE"],
+  "description": "Classic toast with cheese.",
+  "price": 5.99,
+  "imageUrl": "https://example.com/toast.jpg"
+}
+
+### Publish dish
+POST http://localhost:8080/restaurant/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/908f2772-6080-40c7-91ed-d6a0c5df8fc1/publish
+
+### Update existing dish draft
+POST http://localhost:8080/restaurant/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/draft
+Content-Type: application/json
+
+{
+  "dishId": "908f2772-6080-40c7-91ed-d6a0c5df8fc1",
+  "name": "Margherita Pizza Delux",
+  "dishType": "MAIN",
+  "foodTags": ["VEGAN", "LACTOSE"],
+  "description": "New version with extra extra mozzarella.",
+  "price": 15.49,
+  "imageUrl": "https://example.com/pizza-deluxe.jpg"
+}
+
+### Apply all pending draft changes
+POST http://localhost:8080/restaurant/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/apply-drafts

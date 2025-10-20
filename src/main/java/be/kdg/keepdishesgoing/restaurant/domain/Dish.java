@@ -5,61 +5,83 @@ import java.util.UUID;
 
 public class Dish {
     private final UUID id;
-    private final String name;
-    private final DishType dishType;
-    private final List<Dish> subDishes;
-    private final String description;
-    private final float price;
-    private final String imageUrl;
+    private final UUID restaurantId;
+    private String name;
+    private DishType dishType;
+    private List<FoodTag> foodTags;
+    private String description;
+    private float price;
+    private String imageUrl;
+    private DishStatus status;
+    private StockStatus stockStatus;
+    private UUID liveDishId;
 
-    private Dish(UUID id, String name, DishType dishType, List<Dish> subDishes, String description, float price, String imageUrl) {
+    private Dish(UUID id, UUID restaurantId, String name, DishType dishType, List<FoodTag> foodTags, String description,
+                 float price, String imageUrl, DishStatus status, StockStatus stockStatus, UUID liveDishId) {
+        if (restaurantId == null) throw new IllegalArgumentException("Restaurant ID cannot be null");
         if (name == null || name.isBlank()) throw new IllegalArgumentException("Dish name cannot be empty");
         if (price < 0) throw new IllegalArgumentException("Price cannot be negative");
 
         this.id = id == null ? UUID.randomUUID() : id;
+        this.restaurantId = restaurantId;
         this.name = name;
         this.dishType = dishType;
-        this.subDishes = subDishes == null ? List.of() : List.copyOf(subDishes);
+        this.foodTags = foodTags == null ? List.of() : List.copyOf(foodTags);
         this.description = description;
         this.price = price;
         this.imageUrl = imageUrl;
+        this.status = status == null ? DishStatus.DRAFT : status;
+        this.stockStatus = stockStatus == null ? StockStatus.IN_STOCK : stockStatus;
+        this.liveDishId = liveDishId;
     }
 
-    public static Dish create(String name, DishType dishType, List<Dish> subDishes, String description, float price, String imageUrl) {
-        return new Dish(null, name, dishType, subDishes, description, price, imageUrl);
+    public static Dish create(UUID restaurantId, String name, DishType dishType, List<FoodTag> foodTags,
+                              String description, float price, String imageUrl, UUID liveDishId) {
+        return new Dish(null, restaurantId, name, dishType, foodTags, description, price, imageUrl,
+                DishStatus.DRAFT, StockStatus.IN_STOCK,  liveDishId);
     }
 
-    public static Dish fromPersistence(UUID id, String name, DishType dishType, List<Dish> subDishes, String description, float price, String imageUrl) {
-        return new Dish(id, name, dishType, subDishes, description, price, imageUrl);
+    public static Dish createDraftFromPublished(UUID liveDishId, UUID restaurantId, String name,
+            DishType dishType, List<FoodTag> foodTags, String description, float price, String imageUrl) {
+        return new Dish(UUID.randomUUID(), restaurantId, name, dishType, foodTags, description, price,
+                imageUrl, DishStatus.DRAFT, StockStatus.IN_STOCK, liveDishId);
     }
 
-    public UUID id() {
-        return id;
+    public static Dish fromPersistence(UUID id, UUID restaurantId, String name, DishType dishType, List<FoodTag> foodTags,
+                                       String description, float price, String imageUrl,
+                                       DishStatus status, StockStatus stockStatus,  UUID liveDishId) {
+        return new Dish(id, restaurantId, name, dishType, foodTags, description, price, imageUrl, status, stockStatus,  liveDishId);
     }
 
-    public String name() {
-        return name;
+    public void publish() {
+        if (status == DishStatus.PUBLISHED) return;
+        status = DishStatus.PUBLISHED;
     }
 
-    public DishType dishType() {
-        return dishType;
+    public void unpublish() {
+        if (status == DishStatus.UNPUBLISHED) return;
+        status = DishStatus.UNPUBLISHED;
     }
 
-    public List<Dish> subDishes() {
-        return subDishes;
+    public void markOutOfStock() {
+        stockStatus = StockStatus.OUT_OF_STOCK;
     }
 
-    public String description() {
-        return description;
+    public void markInStock() {
+        stockStatus = StockStatus.IN_STOCK;
     }
 
-    public float price() {
-        return price;
-    }
-
-    public String imageUrl() {
-        return imageUrl;
-    }
+    public UUID id() { return id; }
+    public UUID restaurantId() { return restaurantId; }
+    public String name() { return name; }
+    public DishType dishType() { return dishType; }
+    public List<FoodTag> foodTags() { return foodTags; }
+    public String description() { return description; }
+    public float price() { return price; }
+    public String imageUrl() { return imageUrl; }
+    public DishStatus status() { return status; }
+    public StockStatus stockStatus() { return stockStatus; }
+    public UUID liveDishId() { return liveDishId; }
 
     @Override
     public String toString() {
@@ -67,6 +89,9 @@ public class Dish {
                 "name='" + name + '\'' +
                 ", type=" + dishType +
                 ", price=" + price +
+                ", status=" + status +
+                ", stock=" + stockStatus +
+                ", restaurantId=" + restaurantId +
                 '}';
     }
 }
