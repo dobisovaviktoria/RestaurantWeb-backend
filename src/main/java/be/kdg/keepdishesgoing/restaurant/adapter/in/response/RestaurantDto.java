@@ -1,8 +1,8 @@
 package be.kdg.keepdishesgoing.restaurant.adapter.in.response;
 
 import be.kdg.keepdishesgoing.restaurant.domain.CuisineType;
-
 import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,7 +28,7 @@ public record RestaurantDto(
     public record OpeningHoursDto(
             UUID id,
             DayOfWeek dayOfWeek,
-            String openingTime,
-            String closingTime
+            LocalTime openingTime,
+            LocalTime closingTime
     ) {}
 }

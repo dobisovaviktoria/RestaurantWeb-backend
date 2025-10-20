@@ -1,31 +1,41 @@
 package be.kdg.keepdishesgoing.restaurant.domain;
 
 public class Owner {
-    private String id;
-    private String email;
-    private String name;
+    private final String id;
+    private final String email;
+    private final String name;
 
-    public Owner(String id, String email, String name) {
+    private Owner(String id, String email, String name) {
+        if (id == null || id.isBlank()) throw new IllegalArgumentException("Owner id cannot be empty");
+        if (email == null || !email.contains("@")) throw new IllegalArgumentException("Invalid email");
+
         this.id = id;
         this.email = email;
         this.name = name;
     }
 
-    public String getId() {
+    public static Owner create(String id, String email, String name) {
+        return new Owner(id, email, name);
+    }
+
+    public static Owner fromPersistence(String id, String email, String name) {
+        return new Owner(id, email, name);
+    }
+
+    public String id() {
         return id;
     }
 
-    public String getEmail() {
+    public String email() {
         return email;
     }
 
-    public String getName() {
+    public String name() {
         return name;
     }
 
     @Override
     public String toString() {
-        return "email: " + email
-                + ", name: " + name;
+        return "Owner: email=" + email + ", name=" + name;
     }
 }

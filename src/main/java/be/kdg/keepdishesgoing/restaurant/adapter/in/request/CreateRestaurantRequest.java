@@ -3,6 +3,7 @@ package be.kdg.keepdishesgoing.restaurant.adapter.in.request;
 import be.kdg.keepdishesgoing.restaurant.domain.CuisineType;
 
 import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.List;
 
 public record CreateRestaurantRequest(
@@ -25,7 +26,7 @@ public record CreateRestaurantRequest(
 
     public record OpeningHoursRequest(
             DayOfWeek dayOfWeek,
-            String openingTime,
-            String closingTime
+            LocalTime openingTime,
+            LocalTime closingTime
     ) {}
 }

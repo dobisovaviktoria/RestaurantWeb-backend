@@ -14,63 +14,78 @@ public class Restaurant {
     private List<OpeningHours> openingHours;
     private String ownerId;
 
-    public Restaurant(String name, Address address, String email, List<String> pictures, CuisineType cuisineType, float preparationTime, List<OpeningHours> openingHours,  String ownerId) {
-        this.id = UUID.randomUUID();
+    private Restaurant(UUID id, String name, Address address, String email, List<String> pictures,
+                       CuisineType cuisineType, float preparationTime,
+                       List<OpeningHours> openingHours, String ownerId) {
+        if (name == null || name.isBlank()) throw new IllegalArgumentException("Name cannot be empty");
+        if (email == null || !email.contains("@")) throw new IllegalArgumentException("Invalid email");
+        if (preparationTime <= 0) throw new IllegalArgumentException("Preparation time must be positive");
+
+        this.id = id == null ? UUID.randomUUID() : id;
         this.name = name;
         this.address = address;
         this.email = email;
-        this.pictures = pictures;
+        this.pictures = List.copyOf(pictures);
         this.cuisineType = cuisineType;
         this.preparationTime = preparationTime;
-        this.openingHours = openingHours;
+        this.openingHours = List.copyOf(openingHours);
         this.ownerId = ownerId;
     }
 
-    public Restaurant(UUID id, String name, Address address, String email, List<String> pictures, CuisineType cuisineType, float preparationTime, List<OpeningHours> openingHours, String ownerId) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.email = email;
-        this.pictures = pictures;
-        this.cuisineType = cuisineType;
-        this.preparationTime = preparationTime;
-        this.openingHours = openingHours;
-        this.ownerId = ownerId;
+    public static Restaurant create(String name, Address address, String email,
+                                    List<String> pictures, CuisineType cuisineType,
+                                    float preparationTime, List<OpeningHours> openingHours,
+                                    String ownerId) {
+        return new Restaurant(null, name, address, email, pictures, cuisineType, preparationTime, openingHours, ownerId);
     }
 
-    public UUID getId() {
+    public static Restaurant fromPersistence(
+            UUID id,
+            String name,
+            Address address,
+            String email,
+            List<String> pictures,
+            CuisineType cuisineType,
+            float preparationTime,
+            List<OpeningHours> openingHours,
+            String ownerId
+    ) {
+        return new Restaurant(id, name, address, email, pictures, cuisineType, preparationTime, openingHours, ownerId);
+    }
+
+    public UUID id() {
         return id;
     }
 
-    public String getName() {
+    public String name() {
         return name;
     }
 
-    public Address getAddress() {
+    public Address address() {
         return address;
     }
 
-    public String getEmail() {
+    public String email() {
         return email;
     }
 
-    public List<String> getPictures() {
+    public List<String> pictures() {
         return pictures;
     }
 
-    public CuisineType getCuisineType() {
+    public CuisineType cuisineType() {
         return cuisineType;
     }
 
-    public float getPreparationTime() {
+    public float preparationTime() {
         return preparationTime;
     }
 
-    public List<OpeningHours> getOpeningHours() {
+    public List<OpeningHours> openingHours() {
         return openingHours;
     }
 
-    public String getOwnerId() {
+    public String ownerId() {
         return ownerId;
     }
 

@@ -1,32 +1,33 @@
 package be.kdg.keepdishesgoing.restaurant.adapter.in.response;
 
 import be.kdg.keepdishesgoing.restaurant.domain.Restaurant;
+import java.util.stream.Collectors;
 
 public class RestaurantDtoMapper {
     public static RestaurantDto fromDomain(Restaurant restaurant) {
         return new RestaurantDto(
-                restaurant.getId(),
-                restaurant.getName(),
-                restaurant.getOwnerId(),
-                restaurant.getEmail(),
-                restaurant.getPictures(),
-                restaurant.getCuisineType(),
-                restaurant.getPreparationTime(),
+                restaurant.id(),
+                restaurant.name(),
+                restaurant.ownerId(),
+                restaurant.email(),
+                restaurant.pictures(),
+                restaurant.cuisineType(),
+                restaurant.preparationTime(),
                 new RestaurantDto.AddressDto(
-                        restaurant.getAddress().street(),
-                        restaurant.getAddress().number(),
-                        restaurant.getAddress().city(),
-                        restaurant.getAddress().zipcode(),
-                        restaurant.getAddress().country()
+                        restaurant.address().street(),
+                        restaurant.address().number(),
+                        restaurant.address().city(),
+                        restaurant.address().zipcode(),
+                        restaurant.address().country()
                 ),
-                restaurant.getOpeningHours().stream()
+                restaurant.openingHours().stream()
                         .map(oh -> new RestaurantDto.OpeningHoursDto(
-                                oh.getId(),
-                                oh.getDayOfWeek(),
-                                oh.getOpeningTime(),
-                                oh.getClosingTime()
+                                oh.id(),
+                                oh.dayOfWeek(),
+                                oh.openingTime(),  // use domain accessor
+                                oh.closingTime()   // use domain accessor
                         ))
-                        .toList()
+                        .collect(Collectors.toList())
         );
     }
 }

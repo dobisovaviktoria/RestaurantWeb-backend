@@ -28,7 +28,7 @@ public class CreateRestaurantUseCaseImpl implements CreateRestaurantUseCase {
         if (loadRestaurantPort.existsByOwnerId(command.ownerId())) {
             throw new OwnerAlreadyHasRestaurantException("Owner already has a restaurant");
         }
-        Restaurant restaurant = new Restaurant(command.name(), command.address(), command.email(),
+        Restaurant restaurant = Restaurant.create(command.name(), command.address(), command.email(),
                 command.pictures(), command.cuisineType(), command.preparationTime(), command.openingHours(),
                 command.ownerId());
         logger.info("Creating restaurant with name: " + command.name());

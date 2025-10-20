@@ -1,6 +1,5 @@
 package be.kdg.keepdishesgoing.restaurant.core;
 
-import be.kdg.keepdishesgoing.restaurant.adapter.out.entities.OwnerJpaEntity;
 import be.kdg.keepdishesgoing.restaurant.domain.Owner;
 import be.kdg.keepdishesgoing.restaurant.port.in.GetOwnerPort;
 import be.kdg.keepdishesgoing.restaurant.port.out.LoadOwnerPort;
@@ -26,10 +25,7 @@ public class GetOwnerUseCaseImpl implements GetOwnerPort {
         String email = user.getAttribute("email");
         return loadOwnerPort.loadByEmail(email)
                 .orElseGet(() -> {
-                    OwnerJpaEntity owner = new OwnerJpaEntity();
-                    owner.setId(UUID.randomUUID().toString());
-                    owner.setEmail(email);
-                    owner.setName(user.getAttribute("name"));
+                    Owner owner = Owner.create(UUID.randomUUID().toString(), email, user.getAttribute("name"));
                     return saveOwnerPort.saveOwner(owner);
                 });
     }
