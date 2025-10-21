@@ -4,12 +4,14 @@ import be.kdg.keepdishesgoing.restaurant.domain.Owner;
 import be.kdg.keepdishesgoing.restaurant.port.in.GetOwnerPort;
 import be.kdg.keepdishesgoing.restaurant.port.out.LoadOwnerPort;
 import be.kdg.keepdishesgoing.restaurant.port.out.SaveOwnerPort;
+import jakarta.transaction.Transactional;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
+@Transactional
 public class GetOwnerUseCaseImpl implements GetOwnerPort {
 
     private final LoadOwnerPort loadOwnerPort;

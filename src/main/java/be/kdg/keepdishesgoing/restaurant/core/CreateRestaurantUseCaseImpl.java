@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class CreateRestaurantUseCaseImpl implements CreateRestaurantUseCase {
     private final Logger logger = LoggerFactory.getLogger(CreateRestaurantUseCaseImpl.class);
     private final CreateRestaurantPort createRestaurantPort;
@@ -23,7 +24,6 @@ public class CreateRestaurantUseCaseImpl implements CreateRestaurantUseCase {
     }
 
     @Override
-    @Transactional
     public Restaurant createRestaurant(CreateRestaurantCommand command) throws OwnerAlreadyHasRestaurantException{
         if (loadRestaurantPort.existsByOwnerId(command.ownerId())) {
             throw new OwnerAlreadyHasRestaurantException("Owner already has a restaurant");

@@ -1,5 +1,6 @@
 package be.kdg.keepdishesgoing.restaurant.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,41 +36,41 @@ public class Dish {
         this.liveDishId = liveDishId;
     }
 
-    public static Dish create(UUID restaurantId, String name, DishType dishType, List<FoodTag> foodTags,
-                              String description, float price, String imageUrl, UUID liveDishId) {
+    public static Dish createNewDraft(UUID restaurantId, String name, DishType dishType, List<FoodTag> foodTags,
+                                      String description, float price, String imageUrl) {
         return new Dish(null, restaurantId, name, dishType, foodTags, description, price, imageUrl,
-                DishStatus.DRAFT, StockStatus.IN_STOCK,  liveDishId);
+                DishStatus.DRAFT, StockStatus.IN_STOCK, null);
     }
 
-    public static Dish createDraftFromPublished(UUID liveDishId, UUID restaurantId, String name,
-            DishType dishType, List<FoodTag> foodTags, String description, float price, String imageUrl) {
-        return new Dish(UUID.randomUUID(), restaurantId, name, dishType, foodTags, description, price,
-                imageUrl, DishStatus.DRAFT, StockStatus.IN_STOCK, liveDishId);
+    public static Dish createDraftFromPublished(Dish liveDish, String name, DishType dishType, List<FoodTag> foodTags,
+                                                String description, float price, String imageUrl) {
+        return new Dish(UUID.randomUUID(), liveDish.restaurantId, name, dishType, foodTags, description, price,
+                imageUrl, DishStatus.DRAFT, StockStatus.IN_STOCK, liveDish.id);
     }
 
     public static Dish fromPersistence(UUID id, UUID restaurantId, String name, DishType dishType, List<FoodTag> foodTags,
-                                       String description, float price, String imageUrl,
-                                       DishStatus status, StockStatus stockStatus,  UUID liveDishId) {
-        return new Dish(id, restaurantId, name, dishType, foodTags, description, price, imageUrl, status, stockStatus,  liveDishId);
+                                       String description, float price, String imageUrl, DishStatus status,
+                                       StockStatus stockStatus, UUID liveDishId) {
+        return new Dish(id, restaurantId, name, dishType, foodTags, description, price, imageUrl,
+                status, stockStatus, liveDishId);
     }
 
-    public void publish() {
-        if (status == DishStatus.PUBLISHED) return;
-        status = DishStatus.PUBLISHED;
+    public void applyDraftTo(Dish liveDish) {
+        if (status != DishStatus.DRAFT) throw new IllegalStateException("Only drafts can be applied");
+
+        liveDish.name = this.name;
+        liveDish.description = this.description;
+        liveDish.dishType = this.dishType;
+        liveDish.foodTags = new ArrayList<>(this.foodTags);
+        liveDish.price = this.price;
+        liveDish.imageUrl = this.imageUrl;
+        liveDish.status = DishStatus.PUBLISHED;
     }
 
-    public void unpublish() {
-        if (status == DishStatus.UNPUBLISHED) return;
-        status = DishStatus.UNPUBLISHED;
-    }
-
-    public void markOutOfStock() {
-        stockStatus = StockStatus.OUT_OF_STOCK;
-    }
-
-    public void markInStock() {
-        stockStatus = StockStatus.IN_STOCK;
-    }
+    public void publish() { if (status != DishStatus.PUBLISHED) status = DishStatus.PUBLISHED; }
+    public void unpublish() { if (status != DishStatus.UNPUBLISHED) status = DishStatus.UNPUBLISHED; }
+    public void markOutOfStock() { stockStatus = StockStatus.OUT_OF_STOCK; }
+    public void markInStock() { stockStatus = StockStatus.IN_STOCK; }
 
     public UUID id() { return id; }
     public UUID restaurantId() { return restaurantId; }
