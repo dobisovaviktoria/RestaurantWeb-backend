@@ -30,7 +30,7 @@ public class CreateRestaurantUseCaseImpl implements CreateRestaurantUseCase {
         }
         Restaurant restaurant = Restaurant.create(command.name(), command.address(), command.email(),
                 command.pictures(), command.cuisineType(), command.preparationTime(), command.openingHours(),
-                command.ownerId());
+                command.ownerId(), null);
         logger.info("Creating restaurant with name: " + command.name());
         return createRestaurantPort.create(restaurant);
     }

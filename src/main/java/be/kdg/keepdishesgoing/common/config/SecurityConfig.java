@@ -16,10 +16,10 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/restaurant/**").permitAll()
+                        .requestMatchers("/restaurants/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .oauth2Login(Customizer.withDefaults());
+                .oauth2Login().disable();
 
         return http.build();
     }

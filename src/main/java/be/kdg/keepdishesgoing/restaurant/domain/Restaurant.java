@@ -1,5 +1,9 @@
 package be.kdg.keepdishesgoing.restaurant.domain;
 
+import be.kdg.keepdishesgoing.restaurant.domain.exceptions.InvalidTimeRangeException;
+
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,10 +17,11 @@ public class Restaurant {
     private float preparationTime;
     private List<OpeningHours> openingHours;
     private String ownerId;
+    private RestaurantStatus status;
 
     private Restaurant(UUID id, String name, Address address, String email, List<String> pictures,
                        CuisineType cuisineType, float preparationTime,
-                       List<OpeningHours> openingHours, String ownerId) {
+                       List<OpeningHours> openingHours, String ownerId,  RestaurantStatus status) {
         if (name == null || name.isBlank()) throw new IllegalArgumentException("Name cannot be empty");
         if (email == null || !email.contains("@")) throw new IllegalArgumentException("Invalid email");
         if (preparationTime <= 0) throw new IllegalArgumentException("Preparation time must be positive");
@@ -30,13 +35,14 @@ public class Restaurant {
         this.preparationTime = preparationTime;
         this.openingHours = List.copyOf(openingHours);
         this.ownerId = ownerId;
+        this.status = status;
     }
 
     public static Restaurant create(String name, Address address, String email,
                                     List<String> pictures, CuisineType cuisineType,
                                     float preparationTime, List<OpeningHours> openingHours,
-                                    String ownerId) {
-        return new Restaurant(null, name, address, email, pictures, cuisineType, preparationTime, openingHours, ownerId);
+                                    String ownerId, RestaurantStatus status) {
+        return new Restaurant(null, name, address, email, pictures, cuisineType, preparationTime, openingHours, ownerId, RestaurantStatus.AUTO);
     }
 
     public static Restaurant fromPersistence(
@@ -48,9 +54,34 @@ public class Restaurant {
             CuisineType cuisineType,
             float preparationTime,
             List<OpeningHours> openingHours,
-            String ownerId
+            String ownerId,
+            RestaurantStatus status
     ) {
-        return new Restaurant(id, name, address, email, pictures, cuisineType, preparationTime, openingHours, ownerId);
+        return new Restaurant(id, name, address, email, pictures, cuisineType, preparationTime, openingHours, ownerId, status);
+    }
+
+    public void updateOpeningHours(List<OpeningHours> newOpeningHours) {
+        if (newOpeningHours == null || newOpeningHours.isEmpty()) {
+            throw new InvalidTimeRangeException("Opening hours cannot be empty");
+        }
+        this.openingHours = newOpeningHours;
+    }
+
+    public void setStatus(RestaurantStatus status) {
+        if (status == null) {
+            throw new IllegalArgumentException("Status cannot be null");
+        }
+        this.status = status;
+    }
+
+    public boolean isOpenNow() {
+        if (status == RestaurantStatus.OPEN) return true;
+        if (status == RestaurantStatus.CLOSED) return false;
+        var now = LocalTime.now();
+        var day = DayOfWeek.from(java.time.LocalDate.now());
+        return openingHours.stream()
+                .filter(oh -> oh.dayOfWeek() == day)
+                .anyMatch(oh -> !now.isBefore(oh.openingTime()) && now.isBefore(oh.closingTime()));
     }
 
     public UUID id() {
@@ -88,6 +119,8 @@ public class Restaurant {
     public String ownerId() {
         return ownerId;
     }
+
+    public RestaurantStatus status() {return  status;}
 
     @Override
     public String toString() {

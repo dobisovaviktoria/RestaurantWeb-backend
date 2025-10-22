@@ -141,3 +141,31 @@ Content-Type: application/json
 
 ### Apply all pending draft changes
 POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/apply-drafts
+
+### UPDATE OPENING HOURS
+PUT http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/opening-hours
+Content-Type: application/json
+
+[
+  {
+    "id": "60341249-265f-481c-a74c-af81bcf75a50",
+    "dayOfWeek": "MONDAY",
+    "openingTime": "09:00",
+    "closingTime": "17:00"
+  },
+  {
+    "id": "5a6c2a6b-c7f7-46ce-921d-41991716e07c",
+    "dayOfWeek": "TUESDAY",
+    "openingTime": "09:00",
+    "closingTime": "17:00"
+  }
+]
+
+### MANUALLY OPEN THE RESTAURANT
+PUT http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/status?status=OPEN
+
+### MANUALLY CLOSE THE RESTAURANT
+PUT http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/status?status=CLOSED
+
+### RETURN TO AUTOMATIC MODE
+PUT http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/status?status=AUTO
