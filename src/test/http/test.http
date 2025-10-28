@@ -46,6 +46,7 @@ Content-Type: application/json
 
 {
   "dishId": null,
+  "liveDishId": null,
   "name": "Margherita Pizza",
   "dishType": "MAIN",
   "foodTags": ["GLUTEN", "LACTOSE"],
@@ -59,7 +60,8 @@ POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dish
 Content-Type: application/json
 
 {
-  "dishId": "73cf013c-d224-4fb5-8f50-286b99d20136",
+  "dishId": "c19b6d70-c787-4245-924b-5a55a83d93e4",
+  "liveDishId": null,
   "name": "Margherita Pizza Deluxe",
   "dishType": "MAIN",
   "foodTags": ["VEGAN"],
@@ -69,16 +71,16 @@ Content-Type: application/json
 }
 
 ### Publish dish
-POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/73cf013c-d224-4fb5-8f50-286b99d20136/publish
+POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/c19b6d70-c787-4245-924b-5a55a83d93e4/publish
 
 ### Unpublish dish
-POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/73cf013c-d224-4fb5-8f50-286b99d20136/unpublish
+POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/c19b6d70-c787-4245-924b-5a55a83d93e4/unpublish
 
 ### Mark dish out of stock
-POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/73cf013c-d224-4fb5-8f50-286b99d20136/out-of-stock
+POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/c19b6d70-c787-4245-924b-5a55a83d93e4/out-of-stock
 
 ### Mark dish back in stock
-POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/73cf013c-d224-4fb5-8f50-286b99d20136/in-stock
+POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/c19b6d70-c787-4245-924b-5a55a83d93e4/in-stock
 
 ### Create a new dish draft
 POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/draft
@@ -86,6 +88,7 @@ Content-Type: application/json
 
 {
   "dishId": null,
+  "liveDishId": null,
   "name": "Lasagna",
   "dishType": "MAIN",
   "foodTags": ["VEGAN", "GLUTEN"],
@@ -100,6 +103,7 @@ Content-Type: application/json
 
 {
   "dishId": null,
+  "liveDishId": null,
   "name": "Ham and Cheese Toast",
   "dishType": "STARTER",
   "foodTags": ["LACTOSE"],
@@ -114,6 +118,7 @@ Content-Type: application/json
 
 {
   "dishId": null,
+  "liveDishId": null,
   "name": "Cheese Toast",
   "dishType": "STARTER",
   "foodTags": ["LACTOSE"],
@@ -123,14 +128,15 @@ Content-Type: application/json
 }
 
 ### Publish dish
-POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/73cf013c-d224-4fb5-8f50-286b99d20136/publish
+POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/c19b6d70-c787-4245-924b-5a55a83d93e4/publish
 
 ### Update existing dish live dish
 POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/draft
 Content-Type: application/json
 
 {
-  "dishId": "73cf013c-d224-4fb5-8f50-286b99d20136",
+  "dishId": null,
+  "liveDishId": "c19b6d70-c787-4245-924b-5a55a83d93e4",
   "name": "Margherita Pizza Delux",
   "dishType": "MAIN",
   "foodTags": ["VEGAN", "LACTOSE"],
@@ -140,7 +146,7 @@ Content-Type: application/json
 }
 
 ### Apply all pending draft changes
-POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/apply-drafts
+POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/apply-all
 
 ### UPDATE OPENING HOURS
 PUT http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/opening-hours

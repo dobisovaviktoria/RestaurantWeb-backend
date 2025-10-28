@@ -33,8 +33,8 @@ public class DishController {
     @PostMapping("/draft")
     public ResponseEntity<DishDto> createOrUpdateDraft(
             @PathVariable UUID restaurantId,
-            @RequestBody DishDraftRequest request
-    ) {
+            @RequestBody DishDraftRequest request) {
+
         DishDraftCommand command = new DishDraftCommand(
                 restaurantId,
                 request.dishId(),
@@ -46,36 +46,52 @@ public class DishController {
                 request.price(),
                 request.imageUrl()
         );
+
         Dish dish = editDishUseCase.createOrUpdateDraft(command);
-        return ResponseEntity.status(HttpStatus.CREATED).body(DishDtoMapper.fromDomain(dish));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(DishDtoMapper.fromDomain(dish));
     }
 
     @PostMapping("/{dishId}/publish")
-    public ResponseEntity<Void> publishDish(@PathVariable UUID restaurantId, @PathVariable UUID dishId) {
+    public ResponseEntity<Void> publishDish(
+            @PathVariable UUID restaurantId,
+            @PathVariable UUID dishId) {
+
         publishDishUseCase.publishDish(restaurantId, dishId);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{dishId}/unpublish")
-    public ResponseEntity<Void> unpublishDish(@PathVariable UUID restaurantId, @PathVariable UUID dishId) {
+    public ResponseEntity<Void> unpublishDish(
+            @PathVariable UUID restaurantId,
+            @PathVariable UUID dishId) {
+
         publishDishUseCase.unpublishDish(restaurantId, dishId);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{dishId}/out-of-stock")
-    public ResponseEntity<Void> markOutOfStock(@PathVariable UUID restaurantId, @PathVariable UUID dishId) {
+    public ResponseEntity<Void> markOutOfStock(
+            @PathVariable UUID restaurantId,
+            @PathVariable UUID dishId) {
+
         stockDishUseCase.markOutOfStock(restaurantId, dishId);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{dishId}/in-stock")
-    public ResponseEntity<Void> markInStock(@PathVariable UUID restaurantId, @PathVariable UUID dishId) {
+    public ResponseEntity<Void> markInStock(
+            @PathVariable UUID restaurantId,
+            @PathVariable UUID dishId) {
+
         stockDishUseCase.markBackInStock(restaurantId, dishId);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/apply-drafts")
-    public ResponseEntity<Void> applyDrafts(@PathVariable UUID restaurantId) {
+    @PostMapping("/apply-all")
+    public ResponseEntity<Void> applyAllDrafts(
+            @PathVariable UUID restaurantId) {
+
         applyDishChangesUseCase.applyAllPendingChanges(restaurantId);
         return ResponseEntity.ok().build();
     }
