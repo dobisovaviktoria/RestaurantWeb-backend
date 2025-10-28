@@ -5,7 +5,7 @@ import be.kdg.keepdishesgoing.restaurant.domain.exceptions.OwnerAlreadyHasRestau
 import be.kdg.keepdishesgoing.restaurant.port.in.CreateRestaurantCommand;
 import be.kdg.keepdishesgoing.restaurant.port.in.CreateRestaurantUseCase;
 import be.kdg.keepdishesgoing.restaurant.port.out.CreateRestaurantPort;
-import be.kdg.keepdishesgoing.restaurant.port.out.LoadRestaurantPort;
+import be.kdg.keepdishesgoing.restaurant.port.out.RestaurantLoadPort;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,19 +16,19 @@ import org.springframework.stereotype.Service;
 public class CreateRestaurantUseCaseImpl implements CreateRestaurantUseCase {
     private final Logger logger = LoggerFactory.getLogger(CreateRestaurantUseCaseImpl.class);
     private final CreateRestaurantPort createRestaurantPort;
-    private final LoadRestaurantPort loadRestaurantPort;
+    private final RestaurantLoadPort  restaurantLoadPort;
 
-    public CreateRestaurantUseCaseImpl(CreateRestaurantPort createRestaurantPort,  LoadRestaurantPort loadRestaurantPort) {
+    public CreateRestaurantUseCaseImpl(CreateRestaurantPort createRestaurantPort,  RestaurantLoadPort restaurantLoadPort) {
         this.createRestaurantPort = createRestaurantPort;
-        this.loadRestaurantPort = loadRestaurantPort;
+        this.restaurantLoadPort = restaurantLoadPort;
     }
 
     @Override
     public Restaurant createRestaurant(CreateRestaurantCommand command) throws OwnerAlreadyHasRestaurantException{
-        if (loadRestaurantPort.existsByOwnerId(command.ownerId())) {
-            throw new OwnerAlreadyHasRestaurantException("Owner already has a restaurant");
+        if (restaurantLoadPort.findByOwnerId(command.ownerId()).isPresent()) {
+            throw new OwnerAlreadyHasRestaurantException("Restaurant already exists");
         }
-        Restaurant restaurant = Restaurant.create(command.name(), command.address(), command.email(),
+        Restaurant restaurant = Restaurant.create(command.name(), command.address(), command.contactEmail(),
                 command.pictures(), command.cuisineType(), command.preparationTime(), command.openingHours(),
                 command.ownerId(), null);
         logger.info("Creating restaurant with name: " + command.name());

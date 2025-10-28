@@ -11,7 +11,7 @@ public record CreateRestaurantCommand(
         String ownerId,
         String name,
         Address address,
-        String email,
+        String contactEmail,
         List<String> pictures,
         CuisineType cuisineType,
         float preparationTime,
@@ -19,7 +19,7 @@ public record CreateRestaurantCommand(
 ) {
     public CreateRestaurantCommand {
         Assert.hasText(name, "Restaurant name is required");
-        Assert.hasText(email, "Contact email is required");
+        Assert.hasText(contactEmail, "Contact email is required");
         Assert.isTrue(preparationTime > 0, "Preparation time must be positive");
     }
 }

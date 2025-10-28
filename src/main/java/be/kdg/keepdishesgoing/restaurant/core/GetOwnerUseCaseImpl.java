@@ -24,7 +24,7 @@ public class GetOwnerUseCaseImpl implements GetOwnerPort {
 
     @Override
     public Owner getOrCreateOwner(OAuth2User user) {
-        String email = user.getAttribute("email");
+        String email = user.getAttribute("contactEmail");
         return loadOwnerPort.loadByEmail(email)
                 .orElseGet(() -> {
                     Owner owner = Owner.create(UUID.randomUUID().toString(), email, user.getAttribute("name"));

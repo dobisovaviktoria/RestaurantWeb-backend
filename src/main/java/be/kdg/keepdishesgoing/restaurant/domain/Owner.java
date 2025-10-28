@@ -7,7 +7,7 @@ public class Owner {
 
     private Owner(String id, String email, String name) {
         if (id == null || id.isBlank()) throw new IllegalArgumentException("Owner id cannot be empty");
-        if (email == null || !email.contains("@")) throw new IllegalArgumentException("Invalid email");
+        if (email == null || !email.contains("@")) throw new IllegalArgumentException("Invalid contactEmail");
 
         this.id = id;
         this.email = email;
@@ -36,6 +36,6 @@ public class Owner {
 
     @Override
     public String toString() {
-        return "Owner: email=" + email + ", name=" + name;
+        return "Owner: contactEmail=" + email + ", name=" + name;
     }
 }

@@ -10,7 +10,7 @@ public record CreateRestaurantRequest(
         String ownerId,
         String name,
         AddressRequest address,
-        String email,
+        String contactEmail,
         List<String> pictures,
         CuisineType cuisineType,
         float preparationTime,

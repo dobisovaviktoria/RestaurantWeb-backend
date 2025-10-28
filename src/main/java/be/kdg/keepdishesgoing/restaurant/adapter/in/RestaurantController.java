@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/restaurants")
+@CrossOrigin(origins = "http://localhost:5173")
 public class RestaurantController {
     private final CreateRestaurantUseCase createRestaurantUseCase;
     private final UpdateOpeningHoursUseCase updateOpeningHoursUseCase;
@@ -56,7 +56,7 @@ public class RestaurantController {
                 request.ownerId(),
                 request.name(),
                 address,
-                request.email(),
+                request.contactEmail(),
                 request.pictures(),
                 request.cuisineType(),
                 request.preparationTime(),
@@ -93,5 +93,21 @@ public class RestaurantController {
                 .map(RestaurantDtoMapper::fromDomain)
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found: " + restaurantId));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<RestaurantDto>> getAllRestaurants() {
+        List<RestaurantDto> restaurants = restaurantLoadPort.findAll().stream()
+                .map(RestaurantDtoMapper::fromDomain)
+                .toList();
+        return ResponseEntity.ok(restaurants);
+    }
+
+    @GetMapping("/owners/{ownerId}")
+    public ResponseEntity<RestaurantDto> getByOwnerId(@PathVariable String ownerId) {
+        return restaurantLoadPort.findByOwnerId(ownerId)
+                .map(RestaurantDtoMapper::fromDomain)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

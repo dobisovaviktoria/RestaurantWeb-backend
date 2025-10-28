@@ -23,7 +23,7 @@ public class Restaurant {
                        CuisineType cuisineType, float preparationTime,
                        List<OpeningHours> openingHours, String ownerId,  RestaurantStatus status) {
         if (name == null || name.isBlank()) throw new IllegalArgumentException("Name cannot be empty");
-        if (email == null || !email.contains("@")) throw new IllegalArgumentException("Invalid email");
+        if (email == null || !email.contains("@")) throw new IllegalArgumentException("Invalid contactEmail");
         if (preparationTime <= 0) throw new IllegalArgumentException("Preparation time must be positive");
 
         this.id = id == null ? UUID.randomUUID() : id;
@@ -127,7 +127,7 @@ public class Restaurant {
         return "Restaurant: \n" +
                 "name = " + name + '\n' +
                 "address = " + address.toString() + '\n' +
-                "email= " + email + '\n' +
+                "contactEmail= " + email + '\n' +
                 "pictures = " + pictures + '\n' +
                 "cuisine type = " + cuisineType + '\n' +
                 "preparation time = " + preparationTime + '\n' +
