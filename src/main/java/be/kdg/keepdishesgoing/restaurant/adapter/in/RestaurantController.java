@@ -10,6 +10,7 @@ import be.kdg.keepdishesgoing.restaurant.domain.RestaurantStatus;
 import be.kdg.keepdishesgoing.restaurant.domain.exceptions.OwnerAlreadyHasRestaurantException;
 import be.kdg.keepdishesgoing.restaurant.domain.exceptions.RestaurantNotFoundException;
 import be.kdg.keepdishesgoing.restaurant.port.in.*;
+import be.kdg.keepdishesgoing.restaurant.port.out.RestaurantLoadPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,17 +18,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/restaurants")
 public class RestaurantController {
     private final CreateRestaurantUseCase createRestaurantUseCase;
     private final UpdateOpeningHoursUseCase updateOpeningHoursUseCase;
     private final ManualRestaurantStatusUseCase manualRestaurantStatusUseCase;
+    private final RestaurantLoadPort restaurantLoadPort;
 
-    public RestaurantController(CreateRestaurantUseCase createRestaurantUseCase, UpdateOpeningHoursUseCase updateOpeningHoursUseCase, ManualRestaurantStatusUseCase manualRestaurantStatusUseCase) {
+    public RestaurantController(CreateRestaurantUseCase createRestaurantUseCase, UpdateOpeningHoursUseCase updateOpeningHoursUseCase, ManualRestaurantStatusUseCase manualRestaurantStatusUseCase, RestaurantLoadPort restaurantLoadPort) {
         this.createRestaurantUseCase = createRestaurantUseCase;
         this.updateOpeningHoursUseCase = updateOpeningHoursUseCase;
         this.manualRestaurantStatusUseCase = manualRestaurantStatusUseCase;
+        this.restaurantLoadPort = restaurantLoadPort;
     }
 
     @PostMapping()
@@ -81,5 +85,13 @@ public class RestaurantController {
         manualRestaurantStatusUseCase.changeStatus(
                 new ChangeRestaurantStatusCommand(restaurantId, status));
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{restaurantId}")
+    public ResponseEntity<RestaurantDto> getRestaurant(@PathVariable UUID restaurantId) throws RestaurantNotFoundException {
+        return restaurantLoadPort.findById(restaurantId)
+                .map(RestaurantDtoMapper::fromDomain)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found: " + restaurantId));
     }
 }
