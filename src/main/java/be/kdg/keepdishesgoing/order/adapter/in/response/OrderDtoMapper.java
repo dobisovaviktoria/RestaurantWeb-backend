@@ -7,7 +7,7 @@ public class OrderDtoMapper {
         return new OrderDto(
                 order.getId(),
                 order.getRestaurantId(),
-                order.getStatus().name(),
+                order.getCustomerName(),
                 order.getTotalAmount().amount(),
                 order.getStatus(),
                 order.getPlacedAt()

@@ -12,4 +12,6 @@ public interface OrderEventRepository extends JpaRepository<OrderEventJpa, UUID>
 
     @Query("SELECT MAX(e.sequenceNumber) FROM OrderEventJpa e WHERE e.orderId = :aggregateId")
     Optional<Integer> findMaxSequenceByAggregateId(UUID aggregateId);
+
+    List<OrderEventJpa> findByOrderIdAndSequenceNumberGreaterThan(UUID orderId, int sequenceNumber);
 }
