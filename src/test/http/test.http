@@ -83,7 +83,7 @@ POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dish
 POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/c19b6d70-c787-4245-924b-5a55a83d93e4/in-stock
 
 ### Create a new dish draft
-POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/draft
+POST http://localhost:8080/restaurants/28e8a7af-424f-4266-b6ff-9b9940638c73/dishes/draft
 Content-Type: application/json
 
 {
@@ -98,7 +98,7 @@ Content-Type: application/json
 }
 
 ### Create a new dish draft
-POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/draft
+POST http://localhost:8080/restaurants/28e8a7af-424f-4266-b6ff-9b9940638c73/dishes/draft
 Content-Type: application/json
 
 {
@@ -113,7 +113,7 @@ Content-Type: application/json
 }
 
 ### Create a new dish draft
-POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/draft
+POST http://localhost:8080/restaurants/28e8a7af-424f-4266-b6ff-9b9940638c73/dishes/draft
 Content-Type: application/json
 
 {
@@ -128,7 +128,7 @@ Content-Type: application/json
 }
 
 ### Publish dish
-POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/c19b6d70-c787-4245-924b-5a55a83d93e4/publish
+POST http://localhost:8080/restaurants/28e8a7af-424f-4266-b6ff-9b9940638c73/dishes/c19b6d70-c787-4245-924b-5a55a83d93e4/publish
 
 ### Update existing dish live dish
 POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/draft
@@ -146,7 +146,7 @@ Content-Type: application/json
 }
 
 ### Apply all pending draft changes
-POST http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/dishes/apply-all
+POST http://localhost:8080/restaurants/28e8a7af-424f-4266-b6ff-9b9940638c73/dishes/apply-all
 
 ### UPDATE OPENING HOURS
 PUT http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/opening-hours
@@ -178,3 +178,32 @@ PUT http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2/statu
 
 ###
 GET http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2
+
+### Place an order
+
+POST http://localhost:8080/restaurants/28e8a7af-424f-4266-b6ff-9b9940638c73/orders
+Content-Type: application/json
+
+{
+  "customerName": "John Doe",
+  "customerEmail": "john@example.com",
+  "deliveryAddress": {
+    "street": "Main St",
+    "number": "123",
+    "city": "Brussels",
+    "zipcode": "1000",
+    "country": "Belgium"
+  },
+  "orderLines": [
+    {
+      "dishId": "43f3b466-da57-4d7c-9fed-93affd23f0c3",
+      "dishName": "Cheese Toast",
+      "price": {
+        "amount": 5.99
+      },
+      "quantity": 2
+    }
+  ]
+}
+
+###

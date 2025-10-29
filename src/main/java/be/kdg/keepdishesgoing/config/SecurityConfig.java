@@ -1,4 +1,4 @@
-package be.kdg.keepdishesgoing.common.config;
+package be.kdg.keepdishesgoing.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
