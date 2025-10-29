@@ -96,6 +96,9 @@ web_modules/
 .next
 out
 
+!src/adapter.out/
+!src/port.out/
+
 # Nuxt.js build / generate output
 .nuxt
 dist
