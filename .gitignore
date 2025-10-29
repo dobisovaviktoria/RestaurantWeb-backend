@@ -94,10 +94,6 @@ web_modules/
 
 # Next.js build output
 .next
-out
-
-!src/adapter.out/
-!src/port.out/
 
 # Nuxt.js build / generate output
 .nuxt
