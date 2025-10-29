@@ -1,4 +1,4 @@
-package be.kdg.keepdishesgoing.restaurant.domain;
+package be.kdg.keepdishesgoing.common.domain;
 
 public record Address(
         String street,

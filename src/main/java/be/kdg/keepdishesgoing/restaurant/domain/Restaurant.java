@@ -1,5 +1,6 @@
 package be.kdg.keepdishesgoing.restaurant.domain;
 
+import be.kdg.keepdishesgoing.common.domain.Address;
 import be.kdg.keepdishesgoing.restaurant.domain.exceptions.InvalidTimeRangeException;
 
 import java.time.DayOfWeek;

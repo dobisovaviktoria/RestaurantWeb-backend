@@ -3,7 +3,7 @@ package be.kdg.keepdishesgoing.restaurant.adapter.in;
 import be.kdg.keepdishesgoing.restaurant.adapter.in.request.CreateRestaurantRequest;
 import be.kdg.keepdishesgoing.restaurant.adapter.in.response.RestaurantDto;
 import be.kdg.keepdishesgoing.restaurant.adapter.in.response.RestaurantDtoMapper;
-import be.kdg.keepdishesgoing.restaurant.domain.Address;
+import be.kdg.keepdishesgoing.common.domain.Address;
 import be.kdg.keepdishesgoing.restaurant.domain.OpeningHours;
 import be.kdg.keepdishesgoing.restaurant.domain.Restaurant;
 import be.kdg.keepdishesgoing.restaurant.domain.RestaurantStatus;

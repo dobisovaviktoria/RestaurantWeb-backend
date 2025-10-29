@@ -1,6 +1,6 @@
 package be.kdg.keepdishesgoing.restaurant.port.in;
 
-import be.kdg.keepdishesgoing.restaurant.domain.Address;
+import be.kdg.keepdishesgoing.common.domain.Address;
 import be.kdg.keepdishesgoing.restaurant.domain.CuisineType;
 import be.kdg.keepdishesgoing.restaurant.domain.OpeningHours;
 import org.springframework.util.Assert;
