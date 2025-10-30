@@ -7,6 +7,8 @@ import be.kdg.keepdishesgoing.restaurant.domain.Dish;
 import be.kdg.keepdishesgoing.restaurant.port.in.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -33,6 +35,7 @@ public class DishController {
     @PostMapping("/draft")
     public ResponseEntity<DishDto> createOrUpdateDraft(
             @PathVariable UUID restaurantId,
+            @AuthenticationPrincipal Jwt jwt,
             @RequestBody DishDraftRequest request) {
 
         DishDraftCommand command = new DishDraftCommand(
@@ -55,6 +58,7 @@ public class DishController {
     @PostMapping("/{dishId}/publish")
     public ResponseEntity<Void> publishDish(
             @PathVariable UUID restaurantId,
+            @AuthenticationPrincipal Jwt jwt,
             @PathVariable UUID dishId) {
 
         publishDishUseCase.publishDish(restaurantId, dishId);
@@ -64,6 +68,7 @@ public class DishController {
     @PostMapping("/{dishId}/unpublish")
     public ResponseEntity<Void> unpublishDish(
             @PathVariable UUID restaurantId,
+            @AuthenticationPrincipal Jwt jwt,
             @PathVariable UUID dishId) {
 
         publishDishUseCase.unpublishDish(restaurantId, dishId);
@@ -73,6 +78,7 @@ public class DishController {
     @PostMapping("/{dishId}/out-of-stock")
     public ResponseEntity<Void> markOutOfStock(
             @PathVariable UUID restaurantId,
+            @AuthenticationPrincipal Jwt jwt,
             @PathVariable UUID dishId) {
 
         stockDishUseCase.markOutOfStock(restaurantId, dishId);
@@ -82,6 +88,7 @@ public class DishController {
     @PostMapping("/{dishId}/in-stock")
     public ResponseEntity<Void> markInStock(
             @PathVariable UUID restaurantId,
+            @AuthenticationPrincipal Jwt jwt,
             @PathVariable UUID dishId) {
 
         stockDishUseCase.markBackInStock(restaurantId, dishId);
@@ -90,6 +97,7 @@ public class DishController {
 
     @PostMapping("/apply-all")
     public ResponseEntity<Void> applyAllDrafts(
+            @AuthenticationPrincipal Jwt jwt,
             @PathVariable UUID restaurantId) {
 
         applyDishChangesUseCase.applyAllPendingChanges(restaurantId);

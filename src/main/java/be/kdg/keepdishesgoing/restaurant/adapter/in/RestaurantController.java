@@ -13,6 +13,8 @@ import be.kdg.keepdishesgoing.restaurant.port.in.*;
 import be.kdg.keepdishesgoing.restaurant.port.out.RestaurantLoadPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,7 +37,7 @@ public class RestaurantController {
     }
 
     @PostMapping()
-    public ResponseEntity<RestaurantDto> createRestaurant(@RequestBody CreateRestaurantRequest request) throws OwnerAlreadyHasRestaurantException {
+    public ResponseEntity<RestaurantDto> createRestaurant(@AuthenticationPrincipal Jwt jwt, @RequestBody CreateRestaurantRequest request) throws OwnerAlreadyHasRestaurantException {
         Address address = new Address(
                 request.address().street(),
                 request.address().number(),
@@ -72,6 +74,7 @@ public class RestaurantController {
     @PutMapping("/{restaurantId}/opening-hours")
     public ResponseEntity<Void> updateOpeningHours(
             @PathVariable UUID restaurantId,
+            @AuthenticationPrincipal Jwt jwt,
             @RequestBody List<OpeningHours> openingHours) throws RestaurantNotFoundException {
         updateOpeningHoursUseCase.updateOpeningHours(
                 new UpdateOpeningHoursCommand(restaurantId, openingHours));
@@ -81,6 +84,7 @@ public class RestaurantController {
     @PutMapping("/{restaurantId}/status")
     public ResponseEntity<Void> changeStatus(
             @PathVariable UUID restaurantId,
+            @AuthenticationPrincipal Jwt jwt,
             @RequestParam RestaurantStatus status) throws RestaurantNotFoundException {
         manualRestaurantStatusUseCase.changeStatus(
                 new ChangeRestaurantStatusCommand(restaurantId, status));

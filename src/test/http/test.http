@@ -2,7 +2,16 @@
 POST http://localhost:8180/realms/kdg-realm/protocol/openid-connect/token
 Content-Type: application/x-www-form-urlencoded
 
-grant_type=password&client_id=backend-app&username=kiki@gmail.com&password=password
+grant_type = password &
+client_id = backend-app &
+client_secret = tekouiv3wTKbRldHoF3DM4XzxtE9VSMA &
+username = owner &
+password = password
+
+###
+
+
+###
 
 ### Create new restaurant
 POST http://localhost:8080/restaurants
