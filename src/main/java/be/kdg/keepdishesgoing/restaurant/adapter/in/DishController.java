@@ -15,6 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/restaurants/{restaurantId}/dishes")
+@CrossOrigin(origins = "http://localhost:5173")
 public class DishController {
 
     private final EditDishUseCase editDishUseCase;

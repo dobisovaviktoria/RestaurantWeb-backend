@@ -12,6 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/restaurants/{restaurantId}")
+@CrossOrigin(origins = "http://localhost:5173")
 public class DishProjectionController {
 
     private final DraftDishProjectionRepository draftRepo;
