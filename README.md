@@ -6,15 +6,15 @@
 Describe:
 - The most significant challenges you encountered during development.
 
-Frontend security was pain for me. I spend like 12 hours fixing bugs and keycloak was always initializing multiple times. I went through every single implementation possible and was questioning my sanity.
+The project was very time-consuming and I implemented everything at least 50 times wrong until I've got the idea what to do. This resulted in me not pushing code as much as I was so embarrassed about the quality. My spaghetti code is still a mess.
 
-The project was also very time-consuming and I implemented everything at least 50 times wrong until I've got the idea what to do. This resulted in me not pushing code as much as I was so embarrassed about the quality (especially frontend). My spaghetti code is still a mess.
+Particular examples would be hexagonal architecture and DDD overall and how I had to implement them over and over again to strat with something. My earlier commits (I don't want to think about what was before that) is a good testament.
 
 - The aspects of your project you are most proud of.
 
 That I've managed to do applying all changes to the draft dishes as I had to try several times to make it work and it's not even important feature.
 
-Managing two different user experiences is also something I'm proud of. It's closely tied with frontend security but figuring it out was more satisfying than trying to make my frontend load. 
+On top of that, the organization of JPA entities is carefully thought of and manually mapped. It is distributed in a sense that both database and domain have their preferred way of storing data without causing any issues. 
 
 ---
 
@@ -40,6 +40,7 @@ Example:
 - [x] Automatically decline order after 5 minutes
 - [x] Max 10 dishes available for a restaurant
 - [x] Publishing messages for delivery (MQ)
+- [x] Ordering without signing up
 
 ---
 
@@ -48,7 +49,6 @@ Example:
 List features that are planned, in progress, or not yet implemented.
 
 Example:
-- [ ] Ordering without signing up
 - [ ] Track order progress as status changes
 - [ ] Scheduling publishing/unpublishing of dishes
 - [ ] Filtering restaurants
