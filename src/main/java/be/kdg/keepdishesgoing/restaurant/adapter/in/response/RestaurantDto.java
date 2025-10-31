@@ -10,12 +10,13 @@ public record RestaurantDto(
         UUID id,
         String name,
         String ownerId,
-        String email,
+        String contactEmail,
         List<String> pictures,
         CuisineType cuisineType,
         float preparationTime,
         AddressDto address,
-        List<OpeningHoursDto> openingHours
+        List<OpeningHoursDto> openingHours,
+        String manualStatus
 ) {
     public record AddressDto(
             String street,

@@ -40,6 +40,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/restaurants/*/orders/*/accept").authenticated()
                         .requestMatchers(HttpMethod.POST, "/restaurants/*/orders/*/reject").authenticated()
                         .requestMatchers(HttpMethod.POST, "/restaurants/*/orders/*/ready").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/restaurants/*/orders").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/restaurants/*/orders/*/track").permitAll()
                         .anyRequest().authenticated()
                 ).sessionManagement(mgmt -> mgmt.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(rs -> rs.jwt(jwt -> jwtAuthenticationConverter()));

@@ -27,7 +27,8 @@ public class RestaurantDtoMapper {
                                 oh.openingTime(),
                                 oh.closingTime()
                         ))
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList()),
+                restaurant.status().name()
         );
     }
 }

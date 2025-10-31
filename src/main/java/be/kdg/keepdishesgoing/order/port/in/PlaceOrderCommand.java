@@ -17,7 +17,7 @@ public record PlaceOrderCommand(
     public PlaceOrderCommand {
         Assert.notNull(restaurantId, "Restaurant ID is required");
         Assert.hasText(customerName, "Customer name is required");
-        Assert.hasText(customerEmail, "Customer email is required");
+        Assert.hasText(customerEmail, "Customer contactEmail is required");
         Assert.notNull(deliveryAddress, "Delivery address is required");
         Assert.notEmpty(orderLines, "Order must contain at least one item");
     }

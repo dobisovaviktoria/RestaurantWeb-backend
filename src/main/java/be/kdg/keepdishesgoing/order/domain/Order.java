@@ -239,7 +239,7 @@ public class Order {
             throw new IllegalArgumentException("Customer name is required");
         }
         if (customerEmail == null || !customerEmail.contains("@")) {
-            throw new IllegalArgumentException("Valid email is required");
+            throw new IllegalArgumentException("Valid contactEmail is required");
         }
         if (orderLines == null || orderLines.isEmpty()) {
             throw new IllegalArgumentException("Order must contain at least one item");

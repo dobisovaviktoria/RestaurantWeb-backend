@@ -25,7 +25,7 @@ public class OwnerProfileController {
         }
 
         String ownerId = jwt.getSubject();
-        String email = jwt.getClaim("email");
+        String email = jwt.getClaim("contactEmail");
         String name = jwt.getClaim("given_name");
 
         String restaurantId = restaurantLoadPort.findByOwnerId(ownerId)

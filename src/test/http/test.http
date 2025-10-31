@@ -190,7 +190,7 @@ GET http://localhost:8080/restaurants/fccd6c86-bb4d-4423-a3f7-d193aa3543f2
 
 ### Place an order
 
-POST http://localhost:8080/restaurants/28e8a7af-424f-4266-b6ff-9b9940638c73/orders
+POST http://localhost:8080/restaurants/00022516-c8bb-46c1-aafd-c589ebdaaa21/orders
 Content-Type: application/json
 
 {
@@ -205,8 +205,8 @@ Content-Type: application/json
   },
   "orderLines": [
     {
-      "dishId": "43f3b466-da57-4d7c-9fed-93affd23f0c3",
-      "dishName": "Cheese Toast",
+      "dishId": "c09e93ea-4361-4c21-9ca4-fea1e2595ed2",
+      "dishName": "Tiramisu",
       "price": {
         "amount": 5.99
       },
