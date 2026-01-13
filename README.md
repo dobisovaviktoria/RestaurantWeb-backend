@@ -27,9 +27,3 @@ List all features that were successfully implemented and tested.
 - [x] Max 10 dishes available for a restaurant
 - [x] Publishing messages for delivery (MQ)
 - [x] Ordering without signing up
-- [ ] Guesstimated delivery time
-- [ ] Stopping basket from checkout if dish becomes unavailable
-- [ ] Payment provider
-- [ ] Confirmation link to track an order
-- [ ] Price range evolution 
-- [ ] Adjusting price range or price range in general
