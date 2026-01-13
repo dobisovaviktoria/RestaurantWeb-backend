@@ -1,28 +1,14 @@
 # Keep Dishes Going
-### Viktória Dobišová
 
-## Challenges & Accomplishments
+This is the backend for Keep Dishes Going application. In order to sucessfully run the website, this backend needs to run first.
 
-Describe:
-- The most significant challenges you encountered during development.
+## Author 
+Viktória Dobišová
 
-The project was very time-consuming and I implemented everything at least 50 times wrong until I've got the idea what to do. This resulted in me not pushing code as much as I was so embarrassed about the quality. My spaghetti code is still a mess.
-
-Particular examples would be hexagonal architecture and DDD overall and how I had to implement them over and over again to strat with something. My earlier commits (I don't want to think about what was before that) is a good testament.
-
-- The aspects of your project you are most proud of.
-
-That I've managed to do applying all changes to the draft dishes as I had to try several times to make it work and it's not even important feature.
-
-On top of that, the organization of JPA entities is carefully thought of and manually mapped. It is distributed in a sense that both database and domain have their preferred way of storing data without causing any issues. 
-
----
-
-## ✅ Finished Features
+## Finished Features
 
 List all features that were successfully implemented and tested.
 
-Example:
 - [x] Sign in/sign up
 - [x] Create restaurant
 - [x] Editing drafts without affecting live menu
@@ -41,19 +27,6 @@ Example:
 - [x] Max 10 dishes available for a restaurant
 - [x] Publishing messages for delivery (MQ)
 - [x] Ordering without signing up
-
----
-
-## ❌ Unfinished / Planned Features
-
-List features that are planned, in progress, or not yet implemented.
-
-Example:
-- [ ] Track order progress as status changes
-- [ ] Scheduling publishing/unpublishing of dishes
-- [ ] Filtering restaurants
-- [ ] Filtering dishes
-- [ ] Sorting dishes
 - [ ] Guesstimated delivery time
 - [ ] Stopping basket from checkout if dish becomes unavailable
 - [ ] Payment provider
